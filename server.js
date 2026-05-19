@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(logger);
 // Rota de teste
 app.get('/', (req, res) => {
-    res.json({ mensagem: 'Bem-vindo a API da Pastelaria!' });
+    res.json({ mensagem: ' Bem-vindo a API da Pastelaria!' });
 });
 
 // Importando rotas
