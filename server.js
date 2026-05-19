@@ -1,47 +1,6 @@
-// =============================================================
-// server.js — Servidor Principal da API do Haruy Sushi
-// =============================================================
-// Aula 6: API Middleware and Error Handling
-//
-// O que aprendemos nesta aula?
-//   1. O que são Middlewares e para que servem
-//   2. Criar um Middleware de Log (logger.js)
-//   3. Criar um Middleware de Tratamento de Erros (errorHandler.js)
-//   4. Tratar rotas não encontradas (Erro 404)
-//   5. A ORDEM dos middlewares importa muito!
-//
-// Fluxo de uma Requisição (com Middlewares):
-//
-//  App Mobile
-//     │
-//     ▼
-//  [cors()]              ← Middleware 1: Libera acesso de outras origens
-//     │
-//     ▼
-//  [express.json()]      ← Middleware 2: Transforma o body em JSON
-//     │
-//     ▼
-//  [logger]              ← Middleware 3: Anota a requisição no terminal
-//     │
-//     ▼
-//  Rota correta          ← A requisição chega na rota certa
-//  (ex: GET /api/produtos)
-//     │
-//     ▼ (se der erro)
-//  [errorHandler]        ← Captura qualquer erro das rotas
-//     │
-//     ▼
-//  Resposta enviada ao App Mobile
-//
-// =============================================================
 
-
-// ─── 1. Importações das Dependências ─────────────────────────
-// express: framework web para criar o servidor e as rotas
 const express = require('express');
 
-// cors: permite que o App Mobile (em outro domínio) acesse nossa API
-// Sem CORS, o navegador bloquearia as requisições por segurança!
 const cors = require('cors');
 
 
@@ -92,12 +51,14 @@ app.get('/', (req, res) => {
 // Importamos os arquivos de rota da pasta /routes
 const rotasCategorias = require('./routes/categorias');
 const rotasProdutos = require('./routes/produtos');
+const rotasPedidos = require('./routes/pedidos');
 
 // app.use('prefixo', router) registra o router com um prefixo de URL.
 // Toda rota definida dentro de categorias.js ficará em /api/categorias/...
 // Toda rota definida dentro de produtos.js ficará em /api/produtos/...
 app.use('/api/categorias', rotasCategorias);
 app.use('/api/produtos', rotasProdutos);
+app.use('/api/pedidos', rotasPedidos);
 
 
 // =============================================================
